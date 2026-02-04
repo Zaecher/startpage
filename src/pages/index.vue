@@ -20,20 +20,20 @@ const dismissed = ref(JSON.parse(dismissedStorage.value))
 
 const messages: Toast[] = [
   <Toast>{
-    id: 1,
+    id: "1",
     icon: "fa7-solid:circle-info",
     color: "info",
     duration: 10000,
     title: "You can now add icons to groups and links",
   },
   <Toast>{
-    id: 2,
+    id: "2",
     icon: "fa7-solid:circle-info",
     duration: 10000,
     title: "You can now choose to open all links in a new tab",
   },
   <Toast>{
-    id: 3,
+    id: "3",
     icon: "fa7-solid:bullhorn",
     duration: 10000,
     title: "Welcome to the new implementation using NuxtUI",
