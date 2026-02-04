@@ -1,12 +1,12 @@
-import "./assets/css/main.css";
+import "./assets/css/main.css"
 
-import { createApp } from "vue";
-import { createRouter, createWebHashHistory } from "vue-router";
-import ui from "@nuxt/ui/vue-plugin";
+import { createApp } from "vue"
+import { createRouter, createWebHashHistory } from "vue-router"
+import ui from "@nuxt/ui/vue-plugin"
 
-import App from "./App.vue";
+import App from "./App.vue"
 
-const app = createApp(App);
+const app = createApp(App)
 
 app.use(
   createRouter({
@@ -15,9 +15,9 @@ app.use(
       { path: "/edit", component: () => import("./pages/edit.vue") },
     ],
     history: createWebHashHistory(),
-  })
-);
+  }),
+)
 
-app.use(ui);
+app.use(ui)
 
-app.mount("#app");
+app.mount("#app")

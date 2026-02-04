@@ -1,40 +1,40 @@
 <script setup lang="ts">
-import { Container, Group, Link } from "../model";
-import { useDragState } from "../store";
-import { getGroupCardStyle } from "../style";
+import { Container, Group, Link } from "../model"
+import { useDragState } from "../store"
+import { getGroupCardStyle } from "../style"
 
 const { group, deleteGroup } = defineProps<{
-  group: Group;
-  deleteGroup: (group: Group) => void;
-}>();
+  group: Group
+  deleteGroup: (group: Group) => void
+}>()
 
 const { dragData, dragStart, dragEnter, dragOver, dragEnd, drop } =
-  useDragState();
+  useDragState()
 
-const ui = computed(() => getGroupCardStyle(group.color));
+const ui = computed(() => getGroupCardStyle(group.color))
 
 function saveGroup({ name, icon, color }: Container) {
-  group.name = name;
-  group.icon = icon;
-  group.color = color;
+  group.name = name
+  group.icon = icon
+  group.color = color
 }
 
 function saveLink(link: Link) {
-  const update = group.links.find((l) => l.id == link.id);
-  if (!update) return;
-  update.name = link.name;
-  update.icon = link.icon;
-  update.url = link.url;
+  const update = group.links.find((l) => l.id == link.id)
+  if (!update) return
+  update.name = link.name
+  update.icon = link.icon
+  update.url = link.url
 }
 
 function addLink(link: Link) {
-  link.blockId = group.blockId;
-  link.groupId = group.id;
-  group.links.push(link);
+  link.blockId = group.blockId
+  link.groupId = group.id
+  group.links.push(link)
 }
 
 function deleteLink(link: Link) {
-  group.links = group.links.filter((l) => l.id !== link.id);
+  group.links = group.links.filter((l) => l.id !== link.id)
 }
 </script>
 <template>

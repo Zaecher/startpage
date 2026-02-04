@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { Link } from "../model";
+import { Link } from "../model"
 
 const { link, save } = defineProps<{
-  link?: Link;
-  save: (link: Link) => void;
-}>();
+  link?: Link
+  save: (link: Link) => void
+}>()
 
-const temp = ref(link || <Link>{ id: crypto.randomUUID(), name: "", url: "" });
+const temp = ref(link || <Link>{ id: crypto.randomUUID(), name: "", url: "" })
 
-const open = ref(false);
+const open = ref(false)
 watch(open, (isOpen) => {
   temp.value =
     isOpen && link
       ? { ...link }
-      : { id: crypto.randomUUID(), name: "", url: "" };
-});
+      : { id: crypto.randomUUID(), name: "", url: "" }
+})
 
 function handleSave() {
-  save(temp.value);
-  open.value = false;
+  save(temp.value)
+  open.value = false
 }
 </script>
 

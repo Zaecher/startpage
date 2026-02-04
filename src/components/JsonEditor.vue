@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import JsonEditor from "vue3-ts-jsoneditor";
-import { Version } from "../model";
-import { addUUIDs, removeUUIDs } from "../helper";
+import JsonEditor from "vue3-ts-jsoneditor"
+import { Version } from "../model"
+import { addUUIDs, removeUUIDs } from "../helper"
 
 const { content, save } = defineProps<{
-  content: Version;
-  save: (version: Version) => void;
-}>();
+  content: Version
+  save: (version: Version) => void
+}>()
 
-const data = ref("");
-const open = ref(false);
+const data = ref("")
+const open = ref(false)
 watch(open, (isOpen) => {
-  data.value = isOpen ? JSON.stringify(removeUUIDs(content), null, 2) : "{}";
-});
+  data.value = isOpen ? JSON.stringify(removeUUIDs(content), null, 2) : "{}"
+})
 
 function handleSave() {
-  save(addUUIDs(JSON.parse(data.value) as Version));
-  open.value = false;
+  save(addUUIDs(JSON.parse(data.value) as Version))
+  open.value = false
 }
 </script>
 

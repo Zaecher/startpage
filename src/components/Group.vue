@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Group } from "../model";
-import { PageLink } from "@nuxt/ui";
-import { useColorMode, useLocalStorage } from "@vueuse/core";
-import { getGroupStyle } from "../style";
+import { Group } from "../model"
+import { PageLink } from "@nuxt/ui"
+import { useColorMode, useLocalStorage } from "@vueuse/core"
+import { getGroupStyle } from "../style"
 
-const colorMode = useColorMode();
-const newTab = useLocalStorage("startpage-open-new-tab", false);
+const colorMode = useColorMode()
+const newTab = useLocalStorage("startpage-open-new-tab", false)
 
 const { group } = defineProps<{
-  group: Group;
-}>();
+  group: Group
+}>()
 
 const links = computed(() =>
   group.links.map(
@@ -22,9 +22,9 @@ const links = computed(() =>
         external: true,
       },
   ),
-);
+)
 
-const ui = computed(() => getGroupStyle(group.color, colorMode.value));
+const ui = computed(() => getGroupStyle(group.color, colorMode.value))
 </script>
 <template>
   <UPageLinks

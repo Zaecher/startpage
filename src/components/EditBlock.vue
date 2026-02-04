@@ -1,50 +1,49 @@
 <script setup lang="ts">
-import { useColorMode } from "@vueuse/core";
-import { Block, Container, Group } from "../model";
-import { getBlockStyle, getGroupStyle } from "../style";
-import { useDragState } from "../store";
+import { useColorMode } from "@vueuse/core"
+import { Block, Container, Group } from "../model"
+import { getBlockStyle, getGroupStyle } from "../style"
+import { useDragState } from "../store"
 
 const { block } = defineProps<{
-  block: Block;
-  deleteBlock: (block: Block) => void;
-}>();
+  block: Block
+  deleteBlock: (block: Block) => void
+}>()
 
-const toast = useToast();
+const toast = useToast()
 
-const { dragData, dragStart, dragEnter, dragOver, dragEnd, drop } = useDragState();
+const { dragData, dragStart, dragEnter, dragOver, dragEnd, drop } =
+  useDragState()
 
-const colorMode = useColorMode();
-const ui = computed(() => getBlockStyle(block.color));
-const uiNewGroup = computed(() => getGroupStyle('gray-300', colorMode.value))
-
-const visible = ref(block.visible);
+const colorMode = useColorMode()
+const ui = computed(() => getBlockStyle(block.color))
+const uiNewGroup = computed(() => getGroupStyle("gray-300", colorMode.value))
 
 function save({ name, icon, color }: Container) {
-  block.name = name;
-  block.icon = icon;
-  block.color = color;
+  block.name = name
+  block.icon = icon
+  block.color = color
 }
 
 function addGroup(container: Container) {
-  block.groups.push(<Group>{ ...container, blockId: block.id, links: [] });
+  block.groups.push(<Group>{ ...container, blockId: block.id, links: [] })
   toast.add({
     title: `Created group "${container.name}"`,
     icon: "fa7-solid:add",
     color: "success",
     duration: 3000,
     close: false,
-  });
+  })
 }
 
 function deleteGroup(group: Group) {
-  block.groups = block.groups.filter((g) => g.id !== group.id);
+  block.groups = block.groups.filter((g) => g.id !== group.id)
   toast.add({
     title: `Deleted group "${group.name}"`,
     icon: "fa7-solid:trash",
     color: "error",
     duration: 3000,
     close: false,
-  });
+  })
 }
 </script>
 
@@ -71,7 +70,7 @@ function deleteGroup(group: Group) {
         class="flex flex-row gap-2 items-center"
       >
         <USwitch
-          v-model="visible"
+          v-model="block.visible"
           checked-icon="fa7-solid:eye"
           unchecked-icon="fa7-solid:eye-slash"
           class="cursor-pointer"

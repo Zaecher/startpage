@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import fa7_solid from "@iconify/json/json/fa7-solid.json";
-import fa7_brands from "@iconify/json/json/fa7-brands.json";
+import fa7_solid from "@iconify/json/json/fa7-solid.json"
+import fa7_brands from "@iconify/json/json/fa7-brands.json"
 
 const { select } = defineProps<{
-  select: (icon: string | undefined) => void;
-}>();
+  select: (icon: string | undefined) => void
+}>()
 
 const allIcons = [
   ...Object.keys(fa7_solid.icons).map((i) => `fa7-solid:${i}`),
   ...Object.keys(fa7_brands.icons).map((i) => `fa7-brands:${i}`),
-];
+]
 
-const iconFilter = ref("");
+const iconFilter = ref("")
 const filteredIcons = computed(() =>
   allIcons.filter((i) => i.includes(iconFilter.value)),
-);
+)
 
-const open = ref(false);
+const open = ref(false)
 
 function handleSelect(value: string | undefined) {
-  select(value);
-  iconFilter.value = "";
-  open.value = false;
+  select(value)
+  iconFilter.value = ""
+  open.value = false
 }
 </script>
 

@@ -91,15 +91,15 @@ export const useDragState = createGlobalState(() => {
     dragData.value = sourceData
     setTimeout(() => {
       if (!dragData.value) {
-        return;
+        return
       }
-      placeholder.value = source!.cloneNode(true) as HTMLElement;
-      placeholder.value.classList.add("opacity-60", "bg-gray-300");
-      placeholder.value.addEventListener("dragenter", dragEnter);
-      placeholder.value.addEventListener("dragover", dragOver);
-      placeholder.value.addEventListener("drop", drop);
-      source.classList.add("hidden");
-    }, 1);
+      placeholder.value = source!.cloneNode(true) as HTMLElement
+      placeholder.value.classList.add("opacity-60", "bg-gray-300")
+      placeholder.value.addEventListener("dragenter", dragEnter)
+      placeholder.value.addEventListener("dragover", dragOver)
+      placeholder.value.addEventListener("drop", drop)
+      source.classList.add("hidden")
+    }, 1)
   }
 
   function dragEnter(event: DragEvent) {

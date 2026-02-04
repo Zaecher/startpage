@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { Container } from "../model";
+import { Container } from "../model"
 
 const { data, save } = defineProps<{
-  data?: Container;
-  save: (data: Container) => void;
-}>();
+  data?: Container
+  save: (data: Container) => void
+}>()
 
-const baseColors = ["red", "yellow", "green", "blue", "purple", "gray"];
+const baseColors = ["red", "yellow", "green", "blue", "purple", "gray"]
 const colors = baseColors.flatMap((c) =>
   [300, 600, 800].map((w) => `${c}-${w}`),
-);
-const temp = ref<Container>({ name: "", color: "" });
+)
+const temp = ref<Container>({ name: "", color: "" })
 
-const open = ref(false);
+const open = ref(false)
 watch(open, (isOpen) => {
   temp.value =
     isOpen && data
@@ -21,12 +21,12 @@ watch(open, (isOpen) => {
           id: crypto.randomUUID(),
           name: "",
           color: colors[Math.floor(Math.random() * colors.length)],
-        };
-});
+        }
+})
 
 function handleSave() {
-  save(temp.value);
-  open.value = false;
+  save(temp.value)
+  open.value = false
 }
 </script>
 

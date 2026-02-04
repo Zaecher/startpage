@@ -28,10 +28,10 @@ const items = computedAsync(async () => {
       }
     }),
   )
-}, [])
+}, [versions])
 
 const current = ref(versionRange.value.length - 1)
-function setCurrent(_: Event, item: TimelineItem) {
+function setCurrent(item: TimelineItem) {
   current.value = item.value as number
   selectVersion(versionRange.value[current.value])
 }
@@ -45,6 +45,7 @@ function loadMore() {
 function deleteHandler(item: TimelineItem) {
   const timestamp = versionRange.value[item.value]
   deleteVersion(timestamp)
+  versionRange.value.splice(item.value, 1)
   toast.add({
     title: `Deleted version from ${timestamp.toLocaleString()}`,
     icon: "fa7-solid:trash",
@@ -71,21 +72,27 @@ function deleteHandler(item: TimelineItem) {
       :items="items"
       :model-value="current"
       class="p-5"
-      @select="setCurrent"
     >
       <template #indicator="{ item }">
         <UIcon
           :name="item.icon"
           class="cursor-pointer"
+          @click="setCurrent(item)"
         />
       </template>
       <template #title="{ item }">
-        <div class="cursor-pointer">
+        <div
+          class="cursor-pointer"
+          @click="setCurrent(item)"
+        >
           {{ item.title }}
         </div>
       </template>
       <template #date="{ item }">
-        <div class="cursor-pointer">
+        <div
+          class="cursor-pointer"
+          @click="setCurrent(item)"
+        >
           {{ item.date }}
         </div>
       </template>
@@ -107,11 +114,7 @@ function deleteHandler(item: TimelineItem) {
           label="Reset"
           size="xs"
           variant="outline"
-        />
-        <span
-          id="target"
-          ref="currentRef"
-          v-if="item.value === current"
+          @click="setCurrent(item)"
         />
       </template>
     </UTimeline>

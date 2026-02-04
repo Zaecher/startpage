@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { useLocalStorage } from "@vueuse/core";
-import { useVersionStore } from "../store";
-import { Version } from "../model";
+import { useLocalStorage } from "@vueuse/core"
+import { useVersionStore } from "../store"
+import { Version } from "../model"
 
-const toast = useToast();
-const { getVersion } = await useVersionStore();
+const toast = useToast()
+const { getVersion, versions } = await useVersionStore()
 
-const data = ref<Version>({ timestamp: new Date(), blocks: [] });
+const data = ref<Version>({ timestamp: new Date(), blocks: [] })
 onMounted(async () => {
-  data.value = await getVersion();
-});
+  data.value = await getVersion()
+})
 
-const dismissedStorage = useLocalStorage("startpage-dismissed-messages", "[]");
-const dismissed = JSON.parse(dismissedStorage.value);
+watch(versions, async (_) => {
+  data.value = await getVersion()
+})
+
+const dismissedStorage = useLocalStorage("startpage-dismissed-messages", "[]")
+const dismissed = ref(JSON.parse(dismissedStorage.value))
 
 const messages: Toast[] = [
   <Toast>{
@@ -34,8 +38,8 @@ const messages: Toast[] = [
     duration: 10000,
     title: "Welcome to the new implementation using NuxtUI",
   },
-];
-const newMessages = messages.filter((x) => !dismissed.includes(x.id));
+]
+const newMessages = messages.filter((x) => !dismissed.value.includes(x.id))
 newMessages.forEach((m) =>
   toast.add({
     ...m,
@@ -49,14 +53,14 @@ newMessages.forEach((m) =>
         color: "neutral",
         variant: "subtle",
         onClick: (e) => {
-          e?.stopPropagation();
-          dismissed.push(m.id);
-          dismissedStorage.value = JSON.stringify(dismissed);
+          e?.stopPropagation()
+          dismissed.value.push(m.id)
+          dismissedStorage.value = JSON.stringify(dismissed.value)
         },
       },
     ],
   }),
-);
+)
 </script>
 
 <template>

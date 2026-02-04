@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLocalStorage } from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core"
 
 const tabOptions = ref([
   {
@@ -12,12 +12,12 @@ const tabOptions = ref([
     value: false,
     icon: "fa7-solid:window-maximize",
   },
-]);
-const newTab = useLocalStorage("startpage-open-new-tab", false);
-const title = useLocalStorage("startpage-title", "Startpage");
+])
+const newTab = useLocalStorage("startpage-open-new-tab", false)
+const title = useLocalStorage("startpage-title", "Startpage")
 const icon = computed(
   () => tabOptions.value.find((item) => item.value === newTab.value)?.icon,
-);
+)
 </script>
 <template>
   <UHeader :title="title">

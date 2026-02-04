@@ -1,18 +1,18 @@
 <script setup lang="ts">
 const { title, save } = defineProps<{
-  title: string;
-  save: (title: string) => void;
-}>();
+  title: string
+  save: (title: string) => void
+}>()
 
-const tempTitle = ref(title);
-const open = ref(false);
+const tempTitle = ref(title)
+const open = ref(false)
 watch(open, (isOpen) => {
-  tempTitle.value = isOpen ? title : "";
-});
+  tempTitle.value = isOpen ? title : ""
+})
 
 function handleSave() {
-  save(tempTitle.value);
-  open.value = false;
+  save(tempTitle.value)
+  open.value = false
 }
 </script>
 
